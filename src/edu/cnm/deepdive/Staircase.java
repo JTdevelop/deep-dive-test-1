@@ -113,8 +113,15 @@ public class Staircase {
    * @return        array of length <code>height</code>.
    */
   public static String[] buildLinearStaircase(int height) {
-    // TODO Implement method.
-  }
+      String [] result = new String[height];
+      String steps = "*";
+
+      for(int i=0; i < height; i++); {
+        result[i]  = String.format("%1$" +height+ "s", steps);
+        steps += "*";
+    }
+    return result;
+   }
 
   /**
    * Constructs and returns an array of strings, where the first element is the
@@ -130,8 +137,8 @@ public class Staircase {
    * @param height  staircase height (number of steps).
    * @return        array of length <code>height</code>.
    */
-  public static String[] buildFibonacciStaircase(int height) {
+    // public static String[] buildFibonacciStaircase(int height) {
     // TODO Implement method for EXTRA CREDIT!
-  }
+    //}
 
 }
