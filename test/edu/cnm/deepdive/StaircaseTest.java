@@ -1,6 +1,7 @@
 package edu.cnm.deepdive;
 
-import edu.cnm.deepdive.Staircase;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import org.junit.jupiter.api.Test;
 
 /*
   Implements a Junit Test

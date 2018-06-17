@@ -58,7 +58,7 @@ public class Leaderboard {
    */
   public static int[] getCompetitionRanking(int[] leaderboard, int[] scores) {
     // TODO Implement method.
-  }
+  //}
 
   /**
    * Computes and returns an array of rankings, corresponding to the values in
@@ -78,4 +78,4 @@ public class Leaderboard {
     // TODO Implement method for EXTRA CREDIT!
   }
 
-}
+//}
