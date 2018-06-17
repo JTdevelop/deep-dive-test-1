@@ -29,10 +29,8 @@ class LeaderboardTest {
   };
 
 
-
   @org.junit.jupiter.api.Test
   void getCompetitionRanking() {
-
 
   }
 
