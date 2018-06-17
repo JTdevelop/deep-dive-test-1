@@ -52,7 +52,7 @@ public class Leaderboard {
    * @return resulting ranks.
    */
   public static int[] getCompetitionRanking(int[] leaderboard, int[] scores) {
-    for (; ; ) {
+    for (getCompetitionRanking:[]) {
 
     }
     return ranking;
