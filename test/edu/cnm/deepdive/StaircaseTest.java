@@ -1,5 +1,7 @@
 package edu.cnm.deepdive;
 
+import edu.cnm.deepdive.Staircase;
+
 /*
   Implements a Junit Test
 
