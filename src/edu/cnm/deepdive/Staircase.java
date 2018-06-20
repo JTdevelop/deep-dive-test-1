@@ -1,5 +1,7 @@
 package edu.cnm.deepdive;
 
+import java.util.Arrays;
+
 /**
  * The static methods in this class build string array "staircases".
  * <p>
@@ -94,6 +96,9 @@ package edu.cnm.deepdive;
  */
 public class Staircase {
 
+  private Staircase() {
+  }
+
   /**
    * Constructs and returns an array of strings, where the first element is the top step of the
    * staircase, containing a single asterisk (*), right-aligned (that is, padded on the left with
@@ -105,17 +110,15 @@ public class Staircase {
    * @return array of length <code>height</code>.
    */
   public static String[] buildLinearStaircase(int height) {
-    String[] length = new String[height];
-    String steps = "*";
-
+    String[] staircase = new String[height];
+    String format = String.format("%%%ds", height);
+    char[] stepChars = new char[height];
+    Arrays.fill(stepChars, '*');
+    String steps = new String(stepChars);
     for (int i = 0; i < height; i++) {
-      ;
+      staircase[i] = String.format(format, steps.substring(0, i + 1));
     }
-    {
-      length[i] = String.format("%1$" + height + "s", steps);
-      steps += "*";
-    }
-    return length;
+    return staircase;
   }
 
   /**
@@ -131,27 +134,22 @@ public class Staircase {
    * @return array of length <code>height</code>.
    */
   public static String[] buildFibonacciStaircase(int height) {
-    if (height <= 1) {
-      return 1;
+    String[] staircase = new String[height];
+    if (height > 0) {
+      StringBuilder builder = new StringBuilder("*");
+      int prevLength = 0;
+      staircase[0] = builder.toString();
+      for (int i = 1; i < height; i++) {
+        int tempLength = builder.length();
+        builder.append(builder.subSequence(0, prevLength));
+        prevLength = tempLength;
+        staircase[i] = builder.toString();
+      }
+      String format = String.format("%%%ds", builder.length());
+      for (int i = 0; i < height; i++) {
+        staircase[i] = String.format(format, staircase[i]);
+      }
     }
-    return recursive(height - 1) + recursive(height - 2);
+    return staircase;
   }
-
-  public static long iterative(int height) {
-    long prev2 = 1;
-    long prev1 = 1;
-    if (height == 0) {
-      return prev2;
-    }
-    if (height == 1) {
-      return prev1;
-    }
-    for (int i = 2; i <= height; i++) {
-      long current = prev1 + prev2;
-      prev2 = prev1;
-      prev1 = current;
-    }
-    return prev1;
-  }
-
 }
