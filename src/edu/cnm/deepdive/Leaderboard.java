@@ -86,7 +86,7 @@ public class Leaderboard {
    * @param scores scores to be ranked against leaderboard scores.
    * @return resulting ranks.
    */
-  
+
   public static int[] getDenseRanking(int[] leaderboard, int[] scores) {
     /*
   A simple (but inefficient) method of removing tie scores is to use the
