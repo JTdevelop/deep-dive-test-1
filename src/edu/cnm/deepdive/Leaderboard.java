@@ -1,5 +1,8 @@
 package edu.cnm.deepdive;
 
+import java.util.function.IntPredicate;
+import java.util.stream.IntStream;
+
 /**
  * The static methods of this class compute rankings of an input array of scores against a
  * leaderboard of scores.
@@ -39,9 +42,13 @@ package edu.cnm.deepdive;
  */
 public class Leaderboard {
 
+  private Leaderboard() {
+  }
+
   /**
    * Computes and returns an array of rankings, corresponding to the values in the
-   * <code>scores</code> array. These should use the common "competition" ranking scheme &ndash; for
+   * <code>scores</code> array. These should use the common "competition" ranking scheme &ndash;
+   * for
    * example, if 2 players are tied for 1<sup>st</sup> place, the player with the next lower score
    * is assumed to in 3<sup>rd</sup> place. Another way of thinking about this scheme is that if a
    * player is in <i>n</i><sup>th</sup> place, according to this scheme, then there are exactly
@@ -52,10 +59,17 @@ public class Leaderboard {
    * @return resulting ranks.
    */
   public static int[] getCompetitionRanking(int[] leaderboard, int[] scores) {
-    for (getCompetitionRanking:[]) {
-
+    int[] ranks = new int[scores.length];
+    // Iterate from lowest to highest values of leaderboard and scores.
+    int leaderIndex = leaderboard.length;
+    for (int scoreIndex = 0; scoreIndex < scores.length; scoreIndex++) {
+      // Move backwards in leaderboard, until we reach teh start or find a value higher than score.
+      while (leaderIndex > 0 && leaderboard[leaderIndex - 1] <= scores[scoreIndex]) {
+        leaderIndex--;
+      }
+      ranks[scoreIndex] = leaderIndex + 1;
     }
-    return ranking;
+    return ranks;
   }
 
   /**
@@ -72,10 +86,29 @@ public class Leaderboard {
    * @param scores scores to be ranked against leaderboard scores.
    * @return resulting ranks.
    */
+  
   public static int[] getDenseRanking(int[] leaderboard, int[] scores) {
-    for (; ; ) {
+    /*
+  A simple (but inefficient) method of removing tie scores is to use the
+  Stream.distinct() method: int[] distinctLeaderboard = IntStream.of(leaderboard).distinct().toArray();
+  A better (more performant) method, since we know leaderboard is already in sorted order, is to use an
+  INTPredicate to filter out adjacent duplicates:
+   */
+    class NoRepeatFilter implements IntPredicate {
 
+      private int prev = Integer.MIN_VALUE;
+
+      @Override
+      public boolean test(int value) {
+        if (value != prev) {
+          prev = value;
+          return true;
+        } else {
+          return false;
+        }
+      }
     }
+    int[] distinctLeaderboard = IntStream.of(leaderboard).filter(new NoRepeatFilter()).toArray();
+    return getCompetitionRanking(distinctLeaderboard, scores);
   }
-    return denseRanking;
 }
